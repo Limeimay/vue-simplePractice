@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+</head>
+<body>
+    <!--用 v-for 把一个数组对应为一组元素-->
+    <div id="demo1">
+        <ul>
+            <li v-for="item in items">{{item.text}}</li>
+        </ul>
+    </div>
+    <!--v-for 还支持一个可选的第二个参数为当前项的索引，此处为index，非item.index-->
+    <div id="demo2">
+        <ul>
+            <li v-for="(item,index) in items">{{parentText}}-{{index}}-{{item.text}}</li>
+        </ul>
+    </div>
+    <!--用 v-for 通过一个对象的属性来迭代,第二个参数为键名，第三个键名为索引-->
+    <div id="demo3">
+        <p v-for="(value,key,index) in object">{{index}}.{{key}}:{{value}}</p>
+    </div>
+    <!--显示过滤/排序结果-->
+    <div id="demo4">
+        <ul>
+            <li v-for="n in evenNumbers">{{n}}</li>
+        </ul>
+    </div>
+    <div id="demo5">
+        <span v-for="n in 10">{{n}} </span>
+    </div>
+    <!--组件渲染，等看完组件那一章再回来补上！-->
+</body>
+<script>
+    var demo1 = new Vue({
+        el: "#demo1",
+        data: {
+            items: [
+                { text: 'limei' },
+                { text: 'chenzhuliang' }
+            ]
+        }
+    })
+    var demo2 = new Vue({
+        el: "#demo2",
+        data: {
+            parentText:'a cupple',
+            items: [
+                { text: 'limei' },
+                {text:'chenzhuliang'}
+            ]
+        }
+    })
+    var demo3 = new Vue({
+        el: "#demo3",
+        data: {
+            object: {
+                firstName: 'Lee',
+                lastName: 'May',
+                fulName:'Lee May'
+            }
+        }
+    })
+    var demo4 = new Vue({
+        el: "#demo4",
+        data: {
+            numbers:[1,2,3,4,5,6,7,8,9]
+        },
+        computed: {
+            evenNumbers: function () {
+                return this.numbers.filter(function (number) {
+                    return number%2==0
+                })
+            }
+        }       
+    })
+    var demo5 = new Vue({
+        el: "#demo5",
+    })
+</script>
+</html>

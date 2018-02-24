@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+</head>
+<body>
+    <div id="app1">
+        {{ message }}
+    </div>
+    <p v-bind:title="message" id="app2">鼠标在此处悬停几秒查看时间信息</p>
+    <p id="app3" v-if="seen">现在你可以看到我</p>
+    <!--//这里一开始运行不了遇到的难题是关于id位置的放置，一开始放在li元素里是出不来任何东西的，放在ol元素里面就可以正常的显示了，注意-->
+    <ol id="app4">
+        <li v-for='product in products'>
+            {{product}}
+        </li>
+    </ol>
+    <div id="app5">
+        <p>{{message}}</p>
+        <input v-model="message" />
+    </div>
+    <div id="app6">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+    <div id="app7">
+        <ol>
+            <!--有一个地方出错检查了很久，结果发现是拼错了bind，把bind拼成了blind orz-->
+            <todo-item v-for="item in groceryList"                       
+                       v-bind:todo="item"
+                       v-bind:key="item.id"></todo-item>
+        </ol>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app1',
+            data: {
+                message: 'Hello world!'
+            }
+        })
+        var app2 = new Vue({
+            el: "#app2",
+            data: {
+                message: '页面加载于：' + new Date().toLocaleDateString
+            }
+        })
+        var app3 = new Vue({
+            el: "#app3",
+            data: {
+                //在这里是：不是=，记住区分语法和符号
+                seen: true
+            }
+        })
+        var app4 = new Vue({
+            el: "#app4",
+            data: {
+                //数据类型为数组
+                products: [
+                'apple', 'banana', 'peal', 'grape', 'orange'
+                ]
+            }
+        })
+        var app5 = new Vue({
+            el: "#app5",
+            data: {
+                message: 'Hello World!'
+            }
+        })
+        var app6 = new Vue({
+            el: "#app6",
+            data: {
+                message: 'Hello World!'
+            },
+            methods: {
+                reverseMessage: function () {
+                    return this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+        Vue.component("todo-item", {
+            props: ['todo'],
+            template: '<li>{{todo.text}}</li>'
+        })
+        var app7 = new Vue({
+            el: '#app7',
+            data: {
+                groceryList: [
+                { id: 0, text: '蔬菜' },
+                { id: 1, text: '奶酪' },
+                { id: 2, text: '随便吃什么都可以' }
+                ]
+            }
+        })
+    </script>
+</body>
+</html>

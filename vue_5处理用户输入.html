@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+</head>
+<body>
+    <div id="app5">
+        <p>{{message}}</p>
+        <input v-model="message"/>
+    </div>
+    <div id="app6">
+        <p>{{message}}</p>
+        <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+    <script>
+        var app5 = new Vue({
+            el: "#app5",
+            data: {
+                message:'Hello World!'
+            }
+        })
+        var app6 = new Vue({
+            el: "#app6",
+            data: {
+                message:'Hello World!'
+            },
+            methods:{
+                reverseMessage: function () {
+                    this.message=this.message.split('').reverse().join('')
+                }
+        }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+    <script>
+        window.onload= showMessage;
+        function showMessage() {
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    message: 'Hello world!'
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <div id="app">
+        {{ message }}
+    </div>
+   <!--在此处，脚本元素要放在实例化元素的后面，因为页面啊按照自顶向下的顺序加载的，需要在页面加载之后才能对元素进行实例化-->
+    
+</body>
+</html>

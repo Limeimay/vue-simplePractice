@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+</head>
+<body>
+    <!--//这里一开始运行不了遇到的难题是关于id位置的放置，一开始放在li元素里是出不来任何东西的，放在ol元素里面就可以正常的显示了，注意-->
+    <ol id="app">
+        <li v-for='product in products' >
+            {{product}}
+        </li>
+    </ol>
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                //数据类型为数组
+                products: [
+                'apple', 'banana', 'peal', 'grape', 'orange'
+                ]
+            }
+        })
+
+    </script>
+</body>
+</html>

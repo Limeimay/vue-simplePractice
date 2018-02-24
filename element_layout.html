@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>layout布局</title>
+    <script src="script/vue.js"></script>
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        .el-header {
+            background: #B3C0D1;
+        }
+
+        .el-main {
+            background: #E9EEF3;
+            height: 300px;
+        }
+
+        .el-aside {
+            background: #D3DCE6;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <!--只要包含header或footer都会呈现上下排列，所以要插入aside元素的时候要用另一个container元素包括进去-->
+    <div id="demo">
+        <el-container>
+            <el-header>Header</el-header>
+            <el-container>
+                <el-aside>aside</el-aside>
+                <el-main>Main</el-main>
+            </el-container>
+        </el-container>
+    </div>
+    <script>
+        var demo = new Vue({
+            el: "#demo"
+        })
+    </script>
+</body>
+</html>

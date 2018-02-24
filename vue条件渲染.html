@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+</head>
+<body>
+    <div id="demo1">
+        <p v-if="ok">yes</p>
+        <p v-else>no</p>
+    </div>
+    <div id="demo2">
+        <p v-if="type==='A'">A</p>
+        <p v-else-if="type==='B'">B</p>
+        <p v-else-if="type==='C'">C</p>
+    </div>
+    <!--这个方法目前不能通过点击按钮进行登录方式的切换，也没有找出原因，暂且搁置-->
+    <!--要使元素唯一可复用，可以给每个template元素加上一个key属性，但是label元素仍然可以复用-->
+    <div id="demo3">
+        <template v-if="type==='UsersName'">
+            <label>UsersName</label>
+            <input type="text" placeholder="enter your usersname" />
+        </template>
+        <template v-else>
+            <label>Email</label>
+            <input type="text" placeholder="enter your email" />
+        </template>
+        <button v-on:cilck="changeType">change loginType</button>
+    </div>
+</body>
+<script>
+    var demo1 = new Vue({
+        el: "#demo1",
+        data: {
+            ok: false
+        }
+    })
+    var demo2 = new Vue({
+        el: "#demo2",
+        data: {
+            type: 'B'
+        }
+    })
+    var demo3 = new Vue({
+        el: "#demo3",
+        data: {
+            type: 'Email'
+        },
+        methods: {
+            changeType: function () {
+                return this.type = this.type === 'UsersName' ? 'Email' : 'UsersName'
+
+            }
+        }
+    })
+</script>
+</html>

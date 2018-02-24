@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="script/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <p>{{message}}</p>
+        <p>{{reverse}}</p>
+        <p>{{reverseMessage()}}</p>
+        <div id="demo">{{ fullName }}</div>       
+    </div>
+    <script>
+            var vm = new Vue({
+                el: '#example',
+                data: {
+                    message: 'Hello World'
+                },
+                //计算属性，计算属性是基于它们的依赖进行缓存的
+                computed: {
+                    reverse:
+                        function () {
+                            return this.message.split('').reverse().join('')
+                        }
+                },
+                //方法每次出发时都会重新调用
+                methods: {
+                    reverseMessage: function () {
+                        return this.message.split('').reverse().join('')
+                    }
+                }
+            })
+            //var vm1 = new Vue({
+            //    el: "#demo",
+            //    data: {
+            //        firstname: 'Lee',
+            //        lastname: 'May'
+            //    },
+            //    computed: {
+            //        fullname: function () {
+            //            return this.firstname+" "+this.lastname
+            //        }
+        //    }
+            var vm1 = new Vue({
+                el: '#demo',
+                data: {
+                    firstName: 'Foo',
+                    lastName: 'Bar'
+                },
+                computed: {
+                    fullName: function () {
+                        return this.firstName + ' ' + this.lastName
+                    }
+                }
+            })
+    </script>
+</body>
+</html>

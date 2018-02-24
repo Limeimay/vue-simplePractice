@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p v_bind:title="message" id="app">鼠标在此处悬停几秒查看时间信息</p>
+    <script src="script/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data: {
+                message:'页面加载于：'+new Date().toLocaleDateString
+            }
+        })
+    </script>
+</body>
+</html>
