@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Multi Dialog 多对话框</title>
+    <link rel="stylesheet" href="Scripts/element-ui/lib/theme-chalk/index.css" />
+    <script src="Scripts/vue/dist/vue.js"></script>
+    <script src="Scripts/element-ui/lib/index.js"></script>
+
+    <script src="Scripts/cool/cool-dialog.js"></script>
+    <script src="Scripts/cool/multi-dialog.js"></script>
+</head>
+
+<body>
+
+
+    <h1>Multi Dialog 多对话框</h1>
+    <p>在Dialog基础上封装多个对话框</p>
+
+    <h2>用法</h2>
+    <div id="sample">
+        <el-button @click="show1" type="text">点击显示对话框1</el-button>
+        <el-button @click="show2" type="text">点击显示对话框2</el-button>
+        <el-button @click="added" type="text">点击动态添加对话框</el-button>
+
+        <cool-multi-dialog :dialogs="dialogs"></cool-multi-dialog>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#sample',
+            data: {
+                dialogs: [
+                    {
+                        name: 'dialog1',
+                        visible: false,
+                        fullscreen: false,
+                        width: '90%',
+                        iframeHeight: '300px',
+                        title: '对话框1',
+                        src: 'inner.html',
+                        counter: 0
+                    },
+                    {
+                        name: 'dialog2',
+                        visible: false,
+                        width: '500px',
+                        iframeHeight: '500px',
+                        fullscreen: false,
+                        title: '对话框2',
+                        src: 'inner.html',
+                        counter: 0
+                    },
+                ],
+            },
+            methods: {
+                getDialog: function (name) {
+                    return this.dialogs.filter(function (dialog) { return dialog.name === name })[0]
+                },
+                added: function () {
+                    this.dialogs.splice(0, 0, {
+                        name: 'dialog3',
+                        visible: true,
+                        fullscreen: false,
+                        width: '90%',
+                        iframeHeight: '300px',
+                        title: '临时对话框',
+                        src: 'inner.html',
+                        counter: 100
+                    })
+                },
+                show1: function () {
+                    this.getDialog('dialog1').visible = true
+                },
+                show2: function () {
+                    this.getDialog('dialog2').visible = true
+                }
+            },
+        })
+    </script>
+
+    <div id="codes">
+        <span>代码：
+            <el-button type="text" @click="rows=rows===5?6:5">切换展开</el-button> //todo: 语法着色
+        </span>
+        <el-input type="textarea" readonly :rows="rows" v-model="codes"></el-input>
+    </div>
+    <script>
+        var codes = new Vue({
+            el: '#codes',
+            data: {
+                rows: 5,
+                codes: '<div id="sample">\r\n\
+    <el-button @click="show1" type="text">点击显示对话框1</el-button>\r\n\
+    <el-button @click="show2" type="text">点击显示对话框2</el-button>\r\n\
+    <el-button @click="added" type="text">点击动态添加对话框</el-button>\r\n\
+    \r\n\
+    <cool-multi-dialog :dialogs="dialogs"></cool-multi-dialog>\r\n\
+</div>\r\n\
+'
+            }
+        })
+    </script>
+    <div id="docs">
+        <h2>Attributes</h2>
+        <el-table :data="rows">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <h2>Data Attributes</h2>
+                    <el-table :data="props.row.detail">
+                        <el-table-column label="参数" width="120" prop="name"></el-table-column>
+                        <el-table-column label="说明" min-width="120" prop="desc"></el-table-column>
+                        <el-table-column label="类型" width="120" prop="type"></el-table-column>
+                        <el-table-column label="可选值" width="120" prop="option"></el-table-column>
+                        <el-table-column label="默认值" width="120" prop="default"></el-table-column>
+                    </el-table>
+                </template>
+            </el-table-column>
+            <el-table-column label="参数" width="120" prop="name"></el-table-column>
+            <el-table-column label="说明" min-width="120" prop="desc"></el-table-column>
+            <el-table-column label="类型" width="120" prop="type"></el-table-column>
+            <el-table-column label="可选值" width="120" prop="option"></el-table-column>
+            <el-table-column label="默认值" width="120" prop="default"></el-table-column>
+        </el-table>
+    </div>
+    <script>
+        new Vue({
+            el: '#docs',
+            data: {
+                rows: [{
+                    name: "dialogs",
+                    desc: "多对话框数据对象",
+                    type: "Array",
+                    option: "[{...}]",
+                    default: "undefined",
+                    detail: [{
+                        name: "name",
+                        desc: "名称，用于查找对话框",
+                        type: "String",
+                        option: "--",
+                        default: "undefined"
+                    }, {
+                        name: "title",
+                        desc: "标题，显示在对话框右上角",
+                        type: "String",
+                        option: "--",
+                        default: "undefined"
+                    }, {
+                        name: "width",
+                        desc: "宽度，百分比或者固定像素值",
+                        type: "String",
+                        option: "62% / 321px",
+                        default: "50%"
+                    },
+                    {
+                        name: "iframe-height",
+                        desc: "内部iframe高度，只能使用像素，用于控制对话框高度",
+                        type: "String",
+                        option: "321px",
+                        default: "undefined"
+                    }, {
+                        name: "src",
+                        desc: "路径，iframe加载的网页",
+                        type: "String",
+                        option: "inner.html / http://www.baidu.com",
+                        default: "undefined"
+                    }, {
+                        name: "visible",
+                        desc: "可见，对话框显示/隐藏，必须使用sync修饰符",
+                        type: "Boolean",
+                        option: "true / false",
+                        default: "undefined"
+                    }, {
+                        name: "fullscreen",
+                        desc: "全屏，对话框全屏/非全屏，必须使用sync修饰符",
+                        type: "Boolean",
+                        option: "true / false",
+                        default: "undefined"
+                    }]
+
+                },],
+            }
+        })
+    </script>
+
+</body>
+
+</html>
