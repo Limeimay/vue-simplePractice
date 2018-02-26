@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>内部测试页</title>
+    <link rel="stylesheet" href="Scripts/element-ui/lib/theme-chalk/index.css" />
+    <script src="Scripts/vue/dist/vue.js"></script>
+    <script src="Scripts/element-ui/lib/index.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <p>
+            <el-button @click="plusClicked">自增</el-button>
+            parent.vm.getDialog(this.name).counter++</p>
+        <div>
+            <p>在iframe中的页面，通过parent访问父页面时可获取其声明的Vue对象</p>
+            <p>此例中，通过src传递name，传参给父页面Vue对象中的getDialog方法，获取自身对应的dialog数据模型</p>
+        </div>
+        <p>
+            <el-button @click="firstClicked">切换显示对话框1</el-button>
+            parent.vm.getDialog('dialog1').visible = !parent.vm.getDialog('dialog1').visible</p>
+        <p>
+            <el-button @click="secondClicked">切换显示对话框2</el-button>
+            parent.vm.getDialog('dialog2').visible = !parent.vm.getDialog('dialog2').visible</p>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#root",
+        data: {
+            name: location.search.substr(location.search.indexOf("name=") + 5)
+        },
+        methods: {
+            plusClicked: function () {
+                parent.vm.getDialog(this.name).counter++
+            },
+            firstClicked: function () {
+                parent.vm.getDialog('dialog1').visible = !parent.vm.getDialog('dialog1').visible
+            },
+            secondClicked: function () {
+                parent.vm.getDialog('dialog2').visible = !parent.vm.getDialog('dialog2').visible
+            }
+        }
+    })
+</script>
+
+</html>
